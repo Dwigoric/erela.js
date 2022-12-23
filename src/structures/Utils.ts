@@ -132,6 +132,21 @@ export abstract class TrackUtils {
   }
 
   /**
+   * Marks any object as a Track.
+   * The object used must be a JSON representation of a Track and the Track symbol was lost.
+   * @param track
+   */
+  static markAsTrack(track: unknown): Track {
+    if (typeof track === "undefined")
+      throw new RangeError("Provided argument must be present.");
+    Object.defineProperty(track, TRACK_SYMBOL, {
+      configurable: true,
+      value: true
+    });
+    return track as Track;
+  }
+
+  /**
    * Builds a UnresolvedTrack to be resolved before being played  .
    * @param query
    * @param requester
